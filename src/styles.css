@@ -1052,6 +1052,28 @@ textarea { resize: vertical; }
   font-size: .86rem;
 }
 
+.site-credit {
+  margin-top: 1.25rem;
+  color: #94a3b8;
+  font-size: .82rem;
+  text-align: center;
+}
+
+.site-credit a {
+  color: #fcd34d;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.site-credit a:hover {
+  text-decoration: underline;
+}
+
+.result-credit {
+  grid-column: 1 / -1;
+  padding: 1rem 0 .25rem;
+}
+
 .search-home-box {
   width: 100%;
   margin: 0 auto;

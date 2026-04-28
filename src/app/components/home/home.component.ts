@@ -34,6 +34,10 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
         <p class="search-disclaimer">
           Search by town, suburb, school, landmark, or community. Times may vary by +/- 30 minutes.
         </p>
+
+        <footer class="site-credit">
+          Built by <a href="https://github.com/emmaofori20" target="_blank" rel="noopener noreferrer">Emma Ofori</a>
+        </footer>
       </section>
     </main>
   `,

@@ -102,6 +102,10 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
             <p>Search again or choose a popular place.</p>
           </section>
         }
+
+        <footer class="site-credit result-credit">
+          Built by <a href="https://github.com/emmaofori20" target="_blank" rel="noopener noreferrer">Emma Ofori</a>
+        </footer>
       </div>
     </main>
   `,
