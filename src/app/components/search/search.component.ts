@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Area } from '../../models/dumsor.models';
 import { AreaService } from '../../services/area.service';
@@ -46,9 +46,11 @@ import { MissingAreaService } from '../../services/missing-area.service';
         </div>
       }
 
-      <button type="button" class="location-search-button" (click)="useCurrentLocation()">
-        Use current location
-      </button>
+      @if (showLocationButton) {
+        <button type="button" class="location-search-button" (click)="useCurrentLocation()">
+          Use current location
+        </button>
+      }
 
       @if (locationMessage()) {
         <p class="location-search-message">{{ locationMessage() }}</p>
@@ -61,6 +63,8 @@ import { MissingAreaService } from '../../services/missing-area.service';
   `,
 })
 export class SearchComponent {
+  @Input() showLocationButton = true;
+  @Input() showMissingAreaReport = true;
   @Output() areaSelected = new EventEmitter<Area>();
   query = '';
   results = signal<Area[]>([]);
@@ -84,7 +88,7 @@ export class SearchComponent {
   }
 
   showMissingState(): boolean {
-    return this.query.trim().length >= 3 && this.results().length === 0;
+    return this.showMissingAreaReport && this.query.trim().length >= 3 && this.results().length === 0;
   }
 
   async submitMissingArea(): Promise<void> {

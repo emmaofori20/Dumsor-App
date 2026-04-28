@@ -4,15 +4,17 @@ import { Router } from '@angular/router';
 import { Area } from '../../models/dumsor.models';
 import { PopularPlacesComponent } from '../popular-places/popular-places.component';
 import { SearchComponent } from '../search/search.component';
+import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, SearchComponent, PopularPlacesComponent],
+  imports: [CommonModule, SearchComponent, PopularPlacesComponent, ThemeToggleComponent],
   template: `
     <main class="search-home">
       <nav class="search-nav">
         <a href="/admin-import">Admin</a>
+        <app-theme-toggle />
       </nav>
 
       <section class="search-hero">

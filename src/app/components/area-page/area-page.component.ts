@@ -7,11 +7,12 @@ import { TimetableService } from '../../services/timetable.service';
 import { CommunityReportsComponent } from '../community-reports/community-reports.component';
 import { ReportStatusComponent } from '../report-status/report-status.component';
 import { SearchComponent } from '../search/search.component';
+import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-area-page',
   standalone: true,
-  imports: [CommonModule, SearchComponent, ReportStatusComponent, CommunityReportsComponent],
+  imports: [CommonModule, SearchComponent, ReportStatusComponent, CommunityReportsComponent, ThemeToggleComponent],
   template: `
     <main class="app-shell">
       <div class="result-frame">
@@ -20,8 +21,9 @@ import { SearchComponent } from '../search/search.component';
             <span>D</span>
             <strong>Dumsor Timetable</strong>
           </a>
+          <app-theme-toggle />
           <div class="result-search">
-            <app-search (areaSelected)="openArea($event)" />
+            <app-search [showLocationButton]="false" [showMissingAreaReport]="false" (areaSelected)="openArea($event)" />
           </div>
         </header>
 
