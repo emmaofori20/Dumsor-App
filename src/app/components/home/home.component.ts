@@ -13,7 +13,7 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
   template: `
     <main class="search-home">
       <nav class="search-nav">
-        <a href="/admin-import">Admin</a>
+        <!-- <a href="/admin-import" class="hidden">Admin</a> -->
         <app-theme-toggle />
       </nav>
 
