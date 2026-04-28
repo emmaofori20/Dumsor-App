@@ -30,6 +30,7 @@
     "@angular/cli": "^21.2.8",
     "@angular/compiler-cli": "^21.2.0",
     "firebase-admin": "^13.8.0",
+    "pdf-parse": "^2.4.5",
     "prettier": "^3.8.1",
     "typescript": "~5.9.2"
   }

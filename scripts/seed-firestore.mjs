@@ -11,6 +11,21 @@ const projectId = process.env.FIREBASE_PROJECT_ID ?? 'dumsor-timetable-ghana';
 
 function loadSeedData() {
   const seedPath = resolve(root, 'src/app/data/seed-data.ts');
+  const generatedPath = resolve(root, 'src/app/data/generated-areas.ts');
+  const generatedSource = readFileSync(generatedPath, 'utf8');
+  const generatedOutput = ts.transpileModule(generatedSource, {
+    compilerOptions: {
+      module: ts.ModuleKind.CommonJS,
+      target: ts.ScriptTarget.ES2022,
+      esModuleInterop: true,
+    },
+  }).outputText;
+  const generatedSandbox = {
+    exports: {},
+    require: () => ({}),
+  };
+  vm.runInNewContext(generatedOutput, generatedSandbox, { filename: generatedPath });
+
   const source = readFileSync(seedPath, 'utf8');
   const output = ts.transpileModule(source, {
     compilerOptions: {
@@ -22,7 +37,10 @@ function loadSeedData() {
 
   const sandbox = {
     exports: {},
-    require: () => ({}),
+    require: (path) => {
+      if (path === './generated-areas') return generatedSandbox.exports;
+      return {};
+    },
   };
 
   vm.runInNewContext(output, sandbox, { filename: seedPath });
