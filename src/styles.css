@@ -759,6 +759,129 @@ textarea { resize: vertical; }
   color: white;
 }
 
+.report-entry-card p {
+  margin: .65rem 0 0;
+  color: #9ca3af;
+  font-size: .9rem;
+}
+
+.open-report-button,
+.submit-report-button {
+  width: 100%;
+  margin-top: .9rem;
+  border: 0;
+  border-radius: .9rem;
+  padding: .9rem 1rem;
+  background: linear-gradient(135deg, #fcd34d, #f97316);
+  color: #071016;
+  font-weight: 950;
+}
+
+.submit-report-button:disabled {
+  cursor: not-allowed;
+  opacity: .55;
+}
+
+.report-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(2 6 23 / .72);
+  backdrop-filter: blur(14px);
+}
+
+.report-modal {
+  position: relative;
+  width: min(100%, 31rem);
+  border: 1px solid rgb(255 255 255 / .12);
+  border-radius: 1.35rem;
+  padding: 1.2rem;
+  background:
+    radial-gradient(circle at top right, rgb(250 204 21 / .16), transparent 12rem),
+    linear-gradient(180deg, #111a22, #091016);
+  box-shadow: 0 30px 90px rgb(0 0 0 / .48);
+}
+
+.modal-close {
+  position: absolute;
+  top: .85rem;
+  right: .85rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid rgb(255 255 255 / .1);
+  border-radius: 999px;
+  background: rgb(255 255 255 / .06);
+  color: #cbd5e1;
+  font-weight: 900;
+}
+
+.modal-kicker {
+  display: inline-block;
+  border-radius: 999px;
+  padding: .28rem .55rem;
+  background: rgb(250 204 21 / .12);
+  color: #fcd34d;
+  font-size: .72rem;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.report-modal h2 {
+  margin: .75rem 2.2rem 0 0;
+  color: white;
+  font-size: 1.55rem;
+  line-height: 1.08;
+}
+
+.modal-subtitle {
+  margin: .55rem 0 0;
+  color: #94a3b8;
+  font-size: .92rem;
+}
+
+.modal-actions {
+  margin-top: 1rem;
+}
+
+.modal-actions button {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.modal-actions button.selected {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 2px rgb(255 255 255 / .08), 0 12px 30px rgb(0 0 0 / .22);
+}
+
+.report-modal label {
+  display: block;
+  margin-top: 1rem;
+  color: #cbd5e1;
+  font-size: .82rem;
+  font-weight: 850;
+}
+
+.report-modal textarea {
+  width: 100%;
+  margin-top: .45rem;
+  border: 1px solid rgb(255 255 255 / .1);
+  border-radius: .9rem;
+  padding: .85rem;
+  outline: 0;
+  background: rgb(0 0 0 / .24);
+  color: white;
+}
+
+.report-modal textarea:focus {
+  border-color: #fcd34d;
+}
+
 .saved-message {
   margin: .55rem 0 0;
   color: #facc15;

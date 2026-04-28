@@ -40,6 +40,26 @@ Firestore collections expected by the app:
 
 The area seed is condensed from the uploaded ECG/NEDCo 800MW 2026 load management PDF. The timetable covers Saturday, 25 April 2026 through Friday, 1 May 2026.
 
+## Seed Firestore
+
+The app works with bundled seed data, but you can also upload the same data to Firestore.
+
+1. In Firebase Console, open Project settings > Service accounts.
+2. Generate a new private key JSON file.
+3. Set the credential path in PowerShell:
+
+```powershell
+$env:GOOGLE_APPLICATION_CREDENTIALS="C:\path\to\service-account.json"
+```
+
+4. Seed Firestore:
+
+```bash
+npm run seed:firestore
+```
+
+This writes `areas` and `schedules` using merge semantics, so rerunning it updates existing seed documents without deleting user data.
+
 ## Build and deploy
 
 ```bash

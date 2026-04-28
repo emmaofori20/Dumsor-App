@@ -76,11 +76,6 @@ import { SearchComponent } from '../search/search.component';
             </div>
           </section>
 
-          <section class="quick-actions">
-            <button type="button" class="primary-action" (click)="focusReport()">Send live report</button>
-            <button type="button" (click)="share(status)">Copy update</button>
-          </section>
-
           <section class="week-card">
             <div class="section-head">
               <h2>This week</h2>

@@ -1,11 +1,12 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: 'YOUR_FIREBASE_API_KEY',
-    authDomain: 'YOUR_FIREBASE_PROJECT.firebaseapp.com',
-    projectId: 'YOUR_FIREBASE_PROJECT',
-    storageBucket: 'YOUR_FIREBASE_PROJECT.appspot.com',
-    messagingSenderId: 'YOUR_SENDER_ID',
-    appId: 'YOUR_APP_ID',
+    apiKey: 'AIzaSyCoXtZyVt907mEudkyyvy635EcSaZANWDA',
+    authDomain: 'dumsor-timetable-ghana.firebaseapp.com',
+    projectId: 'dumsor-timetable-ghana',
+    storageBucket: 'dumsor-timetable-ghana.firebasestorage.app',
+    messagingSenderId: '431265044287',
+    appId: '1:431265044287:web:6a4a53532f6f8577fca58a',
+    measurementId: 'G-6Y34G1J0W4',
   },
 };
