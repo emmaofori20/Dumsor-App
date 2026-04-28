@@ -365,6 +365,11 @@ textarea { resize: vertical; }
   color: #fcd34d;
 }
 
+.location-search-button:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
 .location-search-message {
   margin: .55rem 0 0;
   color: #f59e0b;

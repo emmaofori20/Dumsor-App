@@ -47,8 +47,8 @@ import { MissingAreaService } from '../../services/missing-area.service';
       }
 
       @if (showLocationButton) {
-        <button type="button" class="location-search-button" (click)="useCurrentLocation()">
-          Use current location
+        <button type="button" class="location-search-button" [disabled]="isLocating()" (click)="useCurrentLocation()">
+          {{ isLocating() ? 'Finding your area...' : 'Use current location' }}
         </button>
       }
 
@@ -70,6 +70,7 @@ export class SearchComponent {
   results = signal<Area[]>([]);
   locationMessage = signal('');
   missingMessage = signal('');
+  isLocating = signal(false);
 
   constructor(
     private readonly areas: AreaService,
@@ -98,26 +99,53 @@ export class SearchComponent {
 
   useCurrentLocation(): void {
     this.locationMessage.set('');
+    this.missingMessage.set('');
 
     if (!navigator.geolocation) {
       this.locationMessage.set('Location is not available in this browser.');
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const nearest = this.areas.findNearest(position.coords.latitude, position.coords.longitude);
-        if (!nearest) {
-          this.locationMessage.set('No nearby timetable area found yet.');
-          return;
-        }
+    if (!window.isSecureContext && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+      this.locationMessage.set('Current location only works on HTTPS websites.');
+      return;
+    }
 
-        this.query = nearest.name;
-        this.results.set([]);
-        this.areaSelected.emit(nearest);
-      },
-      () => this.locationMessage.set('Location permission was not granted.'),
-      { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
-    );
+    this.isLocating.set(true);
+    this.locationMessage.set('Finding the nearest timetable area...');
+    this.getPosition({ enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 })
+      .catch(() => this.getPosition({ enableHighAccuracy: false, timeout: 20000, maximumAge: 300000 }))
+      .then((position) => this.usePosition(position))
+      .catch((error: GeolocationPositionError) => this.handleLocationError(error))
+      .finally(() => this.isLocating.set(false));
+  }
+
+  private getPosition(options: PositionOptions): Promise<GeolocationPosition> {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, options);
+    });
+  }
+
+  private usePosition(position: GeolocationPosition): void {
+    const nearest = this.areas.findNearest(position.coords.latitude, position.coords.longitude);
+    if (!nearest) {
+      this.locationMessage.set('No nearby timetable area found yet.');
+      return;
+    }
+
+    this.query = nearest.name;
+    this.results.set([]);
+    this.locationMessage.set(`Using nearest timetable area: ${nearest.name}.`);
+    this.areaSelected.emit(nearest);
+  }
+
+  private handleLocationError(error: GeolocationPositionError): void {
+    const messages: Record<number, string> = {
+      [error.PERMISSION_DENIED]: 'Location permission was not granted for this site.',
+      [error.POSITION_UNAVAILABLE]: 'Your phone could not determine its location. Try turning on GPS/location services.',
+      [error.TIMEOUT]: 'Location lookup timed out. Try again with GPS/location services enabled.',
+    };
+
+    this.locationMessage.set(messages[error.code] ?? 'Could not get your current location.');
   }
 }
