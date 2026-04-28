@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" fill="none">
+  <defs>
+    <radialGradient id="goldGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 0) rotate(90) scale(1)">
+      <stop stop-color="#FDE68A" stop-opacity=".95"/>
+      <stop offset=".28" stop-color="#FACC15" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#F97316" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="900" fill="transparent"/>
+
+  <g opacity=".55">
+    <path d="M0 680C180 545 270 620 435 475C620 312 760 372 940 230C1075 124 1215 135 1400 35" stroke="#FACC15" stroke-opacity=".28" stroke-width="3"/>
+    <path d="M0 250C160 345 292 245 458 336C626 428 758 296 930 376C1110 460 1235 356 1400 440" stroke="#22C55E" stroke-opacity=".18" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(130 120)">
+    <circle cx="145" cy="130" r="185" fill="#FACC15" opacity=".55" filter="url(#blur)">
+      <animate attributeName="opacity" values=".12;.72;.18;.55;.12" dur="4.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="145" cy="130" r="112" fill="#FDE68A" opacity=".22" filter="url(#blur)">
+      <animate attributeName="opacity" values=".06;.42;.08;.3;.06" dur="4.8s" repeatCount="indefinite"/>
+    </circle>
+    <g stroke="#FACC15" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M145 22c-55 0-92 41-92 90 0 34 17 62 45 82 13 9 16 20 16 34h62c0-14 3-25 16-34 28-20 45-48 45-82 0-49-37-90-92-90Z" fill="#FACC15" fill-opacity=".22">
+        <animate attributeName="fill-opacity" values=".08;.44;.1;.36;.08" dur="4.8s" repeatCount="indefinite"/>
+      </path>
+      <path d="M112 258h66M124 290h42M145 0v-42M52 42 22 12M238 42l30-30M30 150-15 5M260 150l15 5" opacity=".72"/>
+    </g>
+  </g>
+
+  <g transform="translate(980 455)">
+    <circle cx="130" cy="116" r="210" fill="#FACC15" opacity=".48" filter="url(#blur)">
+      <animate attributeName="opacity" values=".08;.62;.1;.5;.08" dur="5.9s" begin=".8s" repeatCount="indefinite"/>
+    </circle>
+    <g stroke="#FDE68A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M130 18c-60 0-100 44-100 98 0 38 20 68 50 90 14 10 17 22 17 38h66c0-16 3-28 17-38 30-22 50-52 50-90 0-54-40-98-100-98Z" fill="#FACC15" fill-opacity=".18">
+        <animate attributeName="fill-opacity" values=".05;.38;.07;.28;.05" dur="5.9s" begin=".8s" repeatCount="indefinite"/>
+      </path>
+      <path d="M94 278h72M108 313h44M130 -8v-50M28 40-9 4M232 40l37-36M8 158-36 170M252 158l36 12" opacity=".68"/>
+    </g>
+  </g>
+
+  <g transform="translate(615 135)" opacity=".7">
+    <circle cx="90" cy="90" r="130" fill="#22C55E" opacity=".22" filter="url(#blur)">
+      <animate attributeName="opacity" values=".04;.28;.05;.18;.04" dur="6.5s" repeatCount="indefinite"/>
+    </circle>
+    <path d="M82 8h88l-60 88h66L50 250l36-108H28L82 8Z" fill="#22C55E" fill-opacity=".2">
+      <animate attributeName="fill-opacity" values=".06;.3;.08;.2;.06" dur="6.5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

@@ -1,0 +1,4 @@
+{
+  "note": "Seed collections for Dumsor Timetable Ghana. Areas are condensed from the published ECG/NEDCo 800MW 2026 load management PDF and expanded in src/app/data/seed-data.ts.",
+  "collections": ["areas", "schedules", "reports"]
+}
