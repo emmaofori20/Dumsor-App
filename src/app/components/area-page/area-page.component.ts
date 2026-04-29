@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Area, AreaStatus } from '../../models/dumsor.models';
+import { Area, AreaStatus, PowerWindow } from '../../models/dumsor.models';
 import { AreaService } from '../../services/area.service';
 import { TimetableService } from '../../services/timetable.service';
 import { CommunityReportsComponent } from '../community-reports/community-reports.component';
@@ -85,11 +85,45 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
             </div>
             <div class="week-strip">
               @for (day of weekDays; track day.date) {
-                <div class="day-tile" [class.today]="day.isToday">
+                <button
+                  type="button"
+                  class="day-tile"
+                  [class.today]="day.isToday"
+                  [class.selected]="selectedDate() === day.date"
+                  [attr.aria-pressed]="selectedDate() === day.date"
+                  (click)="selectDate(day.date)"
+                >
                   <span>{{ day.weekday }}</span>
                   <strong>{{ day.day }}</strong>
                   <small>*</small>
+                </button>
+              }
+            </div>
+            <div class="schedule-panel">
+              <div class="schedule-panel-head">
+                <div>
+                  <span>Selected day</span>
+                  <strong>{{ selectedDateLabel() }}</strong>
                 </div>
+                <em>{{ status.area.name }} · Group {{ status.area.group }}</em>
+              </div>
+
+              @if (selectedDaySchedules(); as slots) {
+                @if (slots.length) {
+                  <div class="schedule-list">
+                    @for (slot of slots; track slot.date + slot.startLabel) {
+                      <div class="schedule-slot">
+                        <span>OFF</span>
+                        <div>
+                          <strong>{{ slot.startLabel }} - {{ slot.endLabel }}</strong>
+                          <small>{{ slot.startBuffer }} to {{ slot.endBuffer }}</small>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                } @else {
+                  <p class="schedule-empty">No outage is scheduled for this area on this date.</p>
+                }
               }
             </div>
           </section>
@@ -118,6 +152,25 @@ export class AreaPageComponent {
     return area ? this.timetable.getAreaStatus(area) : null;
   });
   weekDays: Array<{ date: string; weekday: string; day: number; isToday: boolean }>;
+  selectedDate = signal('');
+  selectedDaySchedules = computed<PowerWindow[]>(() => {
+    const area = this.selectedArea();
+    const date = this.selectedDate();
+    if (!area || !date) return [];
+
+    return this.timetable.getGroupWindows(area.group).filter((window) => window.date === date);
+  });
+  selectedDateLabel = computed(() => {
+    const date = this.selectedDate();
+    if (!date) return 'Choose a day';
+
+    return new Intl.DateTimeFormat('en-GH', {
+      weekday: 'long',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    }).format(new Date(`${date}T00:00:00`));
+  });
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -137,6 +190,7 @@ export class AreaPageComponent {
           isToday: date.toDateString() === today.toDateString(),
         };
       });
+    this.selectedDate.set(this.weekDays.find((day) => day.isToday)?.date ?? this.weekDays[0]?.date ?? '');
 
     this.route.paramMap.subscribe((params) => {
       this.selectedArea.set(this.areas.findById(params.get('id') ?? ''));
@@ -151,6 +205,10 @@ export class AreaPageComponent {
   focusSearch(): void {
     const input = document.getElementById('area-search') as HTMLInputElement | null;
     input?.focus();
+  }
+
+  selectDate(date: string): void {
+    this.selectedDate.set(date);
   }
 
   focusReport(): void {
